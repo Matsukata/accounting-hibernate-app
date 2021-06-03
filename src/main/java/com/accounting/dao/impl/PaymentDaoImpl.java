@@ -61,24 +61,25 @@ public class PaymentDaoImpl implements PaymentDao {
 
     @Override
     public List<Payment> findAllByContract(Long contractId) {
-        return new EntityManagerUtil(emf).performReturningWithinTx(a -> a.createQuery("select c from Payment c join fetch c.contract where c.id = :contractId", Payment.class)
-                .setParameter("id", contractId)
+       return new EntityManagerUtil(emf).performReturningWithinTx(a -> a.createQuery("select a from Payment a join fetch a.contract where a.contract.id = :contract_id", Payment.class)
+                .setParameter("contract_id", contractId)
                 .getResultList()
         );
     }
 
     @Override
     public List<Payment> findAllByCustomer(Long customerId) {
-        return new EntityManagerUtil(emf).performReturningWithinTx(a -> a.createQuery("select p from Payment p join fetch p.contract c join c.customer where p.id = :customerId ", Payment.class)
-                .setParameter("id", customerId)
+       return new EntityManagerUtil(emf).performReturningWithinTx(a -> a.createQuery("select p from Payment p join fetch p.contract c join c.customer where c.customer.id = :customer_id ", Payment.class)
+                .setParameter("customer_id", customerId)
                 .getResultList()
         );
     }
 
     @Override
     public List<Payment> findAllAmountMoreThan(Long customerId, BigDecimal sum) {
-        return new EntityManagerUtil(emf).performReturningWithinTx(a -> a.createQuery("select p from Payment p join fetch p.contract c join c.customer where p.sum > :sum", Payment.class)
-                .setParameter("id", customerId)
+        return new EntityManagerUtil(emf).performReturningWithinTx(a -> a.createQuery("select p from Payment p join fetch p.contract c join c.customer where c.customer.id =:customer_id and p.sum > :sum", Payment.class)
+                .setParameter("customer_id", customerId)
+                .setParameter("sum", sum)
                 .getResultList()
         );
     }

@@ -18,7 +18,7 @@ CREATE TABLE contracts
     sum         DECIMAL     NOT NULL,
     comments    VARCHAR(20) NOT NULL,
     date        DATE        NOT NULL,
-    customer_id INT PRIMARY KEY,
+    customer_id INT ,
 
     CONSTRAINT customers_contracts_FK FOREIGN KEY (customer_id) REFERENCES customers (id)
 );
@@ -28,7 +28,7 @@ CREATE TABLE payments
     id          SERIAL PRIMARY KEY,
     sum         DECIMAL   NOT NULL,
     time        TIMESTAMP NOT NULL,
-    contract_id INT PRIMARY KEY,
+    contract_id INT ,
 
     CONSTRAINT contracts_payments_FK FOREIGN KEY (contract_id) REFERENCES contracts (id)
 );

@@ -51,6 +51,6 @@ public class Contract {
     private Customer customer;
 
     @Setter(AccessLevel.PRIVATE)
-    @OneToMany(mappedBy = "payment", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "contract", fetch = FetchType.LAZY)
     private List<Payment> payments = new ArrayList<>();
 }

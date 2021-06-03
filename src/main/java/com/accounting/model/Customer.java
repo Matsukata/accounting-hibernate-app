@@ -37,6 +37,6 @@ public class Customer {
     private int taxId;
 
     @Setter(AccessLevel.PRIVATE)
-    @OneToMany(mappedBy = "contract", fetch = FetchType.LAZY)
-    private List<Contract> products = new ArrayList<>();
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+    private List<Contract> contracts = new ArrayList<>();
 }
