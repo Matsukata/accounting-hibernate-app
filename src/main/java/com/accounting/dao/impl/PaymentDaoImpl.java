@@ -58,4 +58,28 @@ public class PaymentDaoImpl implements PaymentDao {
     public List<Payment> findAll() {
         return new EntityManagerUtil(emf).performReturningWithinTx(a -> a.createQuery("select a from Payment a", Payment.class).getResultList());
     }
+
+    @Override
+    public List<Payment> findAllByContract(Long contractId) {
+        return new EntityManagerUtil(emf).performReturningWithinTx(a -> a.createQuery("select c from Payment c join fetch c.contract where c.id = :contractId", Payment.class)
+                .setParameter("id", contractId)
+                .getResultList()
+        );
+    }
+
+    @Override
+    public List<Payment> findAllByCustomer(Long customerId) {
+        return new EntityManagerUtil(emf).performReturningWithinTx(a -> a.createQuery("select p from Payment p join fetch p.contract c join c.customer where p.id = :customerId ", Payment.class)
+                .setParameter("id", customerId)
+                .getResultList()
+        );
+    }
+
+    @Override
+    public List<Payment> findAllAmountMoreThan(Long customerId, BigDecimal sum) {
+        return new EntityManagerUtil(emf).performReturningWithinTx(a -> a.createQuery("select p from Payment p join fetch p.contract c join c.customer where p.sum > :sum", Payment.class)
+                .setParameter("id", customerId)
+                .getResultList()
+        );
+    }
 }

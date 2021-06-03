@@ -17,4 +17,10 @@ public interface PaymentDao {
     void remove(Payment payment);
 
     List<Payment> findAll();
+
+    List<Payment> findAllByContract(Long contractId);
+
+    List<Payment> findAllByCustomer(Long customerId);
+
+    List<Payment> findAllAmountMoreThan(Long customerId, BigDecimal sum);
 }
